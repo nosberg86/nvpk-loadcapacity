@@ -1,0 +1,26 @@
+-- CreateTable
+CREATE TABLE "sheet" (
+    "id" SERIAL NOT NULL,
+    "Type" TEXT NOT NULL,
+    "length" DOUBLE PRECISION NOT NULL,
+    "width" DOUBLE PRECISION NOT NULL,
+    "thickness" DOUBLE PRECISION NOT NULL,
+    "weight" DOUBLE PRECISION NOT NULL,
+    "stock" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "sheet_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Truck" (
+    "id" SERIAL NOT NULL,
+    "model" TEXT NOT NULL,
+    "length" DOUBLE PRECISION NOT NULL,
+    "width" DOUBLE PRECISION NOT NULL,
+    "height" DOUBLE PRECISION,
+    "capacity" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Truck_pkey" PRIMARY KEY ("id")
+);

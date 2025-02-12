@@ -1,0 +1,24 @@
+npx shadcn@latest init 
+
+############################################################################
+#########	Instalación ORM Prisma PostgreSQL	####################
+############################################################################
+
+npm install prisma --save-dev
+npm install tsx --save-dev 
+npm install @prisma/extension-accelerate
+npx prisma init
+npx prisma migrate dev --name init
+
+############################################################################
+#########	Instalación Lib Zod y Form		####################
+############################################################################
+
+npm install react-hook-form zod @hookform/resolvers
+
+
+############################################################################
+#########		Habilitar Modo Oscuro		####################
+############################################################################
+
+https://ui.shadcn.com/docs/dark-mode/next
