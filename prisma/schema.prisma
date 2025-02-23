@@ -15,15 +15,22 @@ datasource db {
 
 model sheet {
   id     Int  @id @default(autoincrement())
-  Type      String
-  length    Float
+  Model      String @unique
   width     Float
   thickness Float
   weight    Float
-  stock     Int
+  types       LaminaType[]
   createdAt DateTime @default(now())
 }
-
+model LaminaType {
+  id        Int  @id  @default(autoincrement())
+  sheet     sheet  @relation(fields: [sheetId], references: [id], onDelete: Cascade)
+  sheetId   Int
+  length    Float
+  weight    Float
+  stock     Int
+  @@unique([sheetId, length],  name: "sheetId_length") // Clave compuesta
+}
 model Truck {
   id          Int  @id @default(autoincrement())
   model       String

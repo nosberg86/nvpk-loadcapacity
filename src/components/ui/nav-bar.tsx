@@ -31,15 +31,9 @@ export function ResponsiveNavBar() {
                 className="flex w-full items-center py-2 text-lg font-semibold"
                 prefetch={false}
               >
-                Home
+                Inicio
               </Link>
-              <Link
-                href="#"
-                className="flex w-full items-center py-2 text-lg font-semibold"
-                prefetch={false}
-              >
-                About
-              </Link>
+
               <Link
                 href="/truck"
                 className="flex w-full items-center py-2 text-lg font-semibold"
@@ -48,11 +42,11 @@ export function ResponsiveNavBar() {
                 Camiones
               </Link>
               <Link
-                href="#"
+                href="/sheet"
                 className="flex w-full items-center py-2 text-lg font-semibold"
                 prefetch={false}
               >
-                Contact
+                Láminas
               </Link>
             </div>
             <Separator className="m-3" />

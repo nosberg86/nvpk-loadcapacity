@@ -1,10 +1,7 @@
 import { z } from "zod";
 
 export const sheetSchema = z.object({
-  Type: z.string().min(1, "El tipo es obligatorio"),
-  length: z.coerce
-    .number({ message: "Se espera un número positivo" })
-    .min(1, "El largo es obligatoria"),
+  Model: z.string().min(1, "El tipo es obligatorio"),
   width: z.coerce
     .number({ message: "Se espera un número positivo" })
     .min(1, "El ancho es obligatorio"),
@@ -15,9 +12,16 @@ export const sheetSchema = z.object({
   weight: z.coerce
     .number({ message: "Se espera un número positivo" })
     .min(1, "El peso es obligatoria"),
-  stock: z.coerce
-    .number({ message: "Se espera un número positivo" })
-    .min(1, "El stock debe ser mayor a 0"),
+  types: z.array(
+    z.object({
+      length: z.coerce
+        .number({ message: "Se espera un número positivo" })
+        .min(1, "La longitud es obligatoria"),
+      stock: z.coerce
+        .number({ message: "Se espera un número positivo" })
+        .min(1, "La cantidad es obligatoria"),
+    })
+  ),
 });
 
 export type sheetFormValues = z.infer<typeof sheetSchema>;
