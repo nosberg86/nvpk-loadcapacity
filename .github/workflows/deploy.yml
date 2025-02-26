@@ -33,6 +33,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /root/app
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env
             docker compose down
             docker compose up -d --build
             sleep 10 # Esperar a que la base de datos esté lista
