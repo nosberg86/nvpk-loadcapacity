@@ -1,0 +1,37 @@
+services:
+  #db:
+  #    image: postgres:15
+  #   container_name: postgres_db
+  #  restart: always
+  # environment:
+  #  POSTGRES_USER: nvpk_user
+  #  POSTGRES_PASSWORD: nvpk_password
+  #  POSTGRES_DB: nvpk
+  #volumes:
+  #  - pgdata:/var/lib/postgresql/data
+  #ports:
+  #  - "5432:5432"
+  #networks:
+  #  - nvpk_network
+
+  nextjs:
+    build: .
+    container_name: next_app
+    restart: always
+    #    depends_on:
+    #      - db
+    environment:
+      DATABASE_URL: "postgres://neondb_owner:npg_HAxGo73iPbJr@ep-black-water-a5tv41qj-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require"
+    ports:
+      - "82:3000"
+#    networks:
+#      - nvpk_network
+
+volumes:
+  pgdata: # Volumen persistente para PostgreSQL
+
+#networks:
+#  nvpk_network:
+#   driver: bridge
+#####   COMANDOS  #####
+###   docker-compose up -d

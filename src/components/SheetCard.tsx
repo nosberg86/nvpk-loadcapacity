@@ -2,6 +2,7 @@
 
 import { sheet } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { Card, CardTitle } from "./ui";
 
 interface Sheet {
   sheet: sheet;
@@ -10,15 +11,15 @@ interface Sheet {
 export default function SheetCard({ sheet }: Sheet) {
   const route = useRouter();
   return (
-    <div
-      className="bg-slate-700 p-3 hover:bg-slate-500 hover:cursor-pointer"
+    <Card
+      className=" hover:shadow-md hover:shadow-green-400 hover:cursor-pointer p-6"
       onClick={() => {
         route.push("/sheet/Edit/" + sheet.id);
       }}
     >
-      <h3 className="font-bold text-2xl mb-2">{sheet.Type}</h3>
-      <p>{sheet.length}</p>
+      <CardTitle className="font-bold text-2xl mb-2">{sheet.Model}</CardTitle>
+      <p>{sheet.width}</p>
       <p>{new Date(sheet.createdAt).toLocaleDateString()}</p>
-    </div>
+    </Card>
   );
 }

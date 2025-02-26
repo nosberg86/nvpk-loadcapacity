@@ -2,6 +2,7 @@
 
 import { Truck } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { Card, CardTitle } from "./ui";
 
 interface truck {
   truck: Truck;
@@ -10,15 +11,15 @@ interface truck {
 export default function TruckCard({ truck }: truck) {
   const route = useRouter();
   return (
-    <div
-      className="bg-slate-700 p-3 hover:bg-slate-500 hover:cursor-pointer"
+    <Card
+      className=" p-3 hover:shadow-md hover:shadow-green-400 hover:cursor-pointer"
       onClick={() => {
         route.push("/truck/Edit/" + truck.id);
       }}
     >
-      <h3 className="font-bold text-2xl mb-2">{truck.model}</h3>
+      <CardTitle className="font-bold text-2xl mb-2">{truck.model}</CardTitle>
       <p>{truck.length}</p>
       <p>{new Date(truck.createdAt).toLocaleDateString()}</p>
-    </div>
+    </Card>
   );
 }

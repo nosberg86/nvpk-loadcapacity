@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { LaminaType, Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     thickness,
     weight,
     types: {
-      create: types.map((type: any) => ({
+      create: types.map((type: LaminaType) => ({
         length: type.length,
         weight: type.length * weight,
         stock: type.stock,

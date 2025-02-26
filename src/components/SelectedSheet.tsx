@@ -1,5 +1,5 @@
 import {
-  Button,
+  Badge,
   Card,
   CardContent,
   CardFooter,
@@ -7,6 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { Lamina } from "@/models/request";
+import { LaminaType } from "@prisma/client";
+import { X } from "lucide-react";
 
 interface Props {
   seleccionadas: Lamina[];
@@ -21,9 +23,16 @@ export function SelectedSheet({
   pesoTotal,
   volumenTotal,
 }: Props) {
-  const onDelete = (deletedSheet: Lamina) => {
-    seleccionadas = seleccionadas.filter((item) => item !== deletedSheet);
-    onEliminar(seleccionadas);
+  const onDelete = (deletedSheet: Lamina, tipo: LaminaType) => {
+    const updatedSheets: Lamina[] = seleccionadas.map((item) => {
+      const updatedTypes = item.types.filter((t) => t !== tipo);
+      console.log(updatedTypes);
+      return {
+        ...item,
+        types: updatedTypes,
+      };
+    });
+    onEliminar(updatedSheets);
   };
 
   return (
@@ -31,19 +40,30 @@ export function SelectedSheet({
       <CardHeader>
         <CardTitle>Láminas Disponibles</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="grid grid-cols-1 gap-2">
         {seleccionadas.map((lamina) => (
-          <div key={lamina.id} className="border p-2 rounded-lg bg-gray-100">
-            <strong>{lamina.Model}</strong>
-            {lamina.types.map((tipo) => (
-              <span
-                key={tipo.id}
-                className="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-sm"
-              >
-                ({tipo.stock}) {lamina.Model} - {tipo.length}m
-              </span>
-            ))}
-          </div>
+          <Card key={lamina.id}>
+            <CardHeader>
+              <CardTitle>{lamina.Model}</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-6">
+              {lamina.types.map((tipo) => (
+                <Badge
+                  key={tipo.id}
+                  className="px-3 py-1 rounded-full flex items-center gap-2  max-w-40 "
+                >
+                  <Badge className="bg-slate-600 rounded-full dark:text-white ">
+                    {tipo.stock}
+                  </Badge>
+                  <pre>{tipo.length} metros</pre>
+                  <X
+                    className="h-5 w-5 cursor-pointer"
+                    onClick={() => onDelete(lamina, tipo)}
+                  />
+                </Badge>
+              ))}
+            </CardContent>
+          </Card>
         ))}
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">

@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui";
+import { Button } from "@/components/ui";
 import SheetSelection from "@/components/SheetSelection";
 import { SelectedSheet } from "@/components/SelectedSheet";
 import CamionOptimoCard from "@/components/OptimalTruck";
@@ -19,7 +13,6 @@ export default function Dashboard() {
   //const [camiones, setCamiones] = useState<Truck[]>([]);
   const [disponibles, setDisponibles] = useState<Lamina[]>([]);
   const [cargaTotal, setCargaTotal] = useState({ peso: 0, volumen: 0 });
-  const [camionOptimo, setCamionOptimo] = useState<any>(null);
   const [resultado, setResultado] = useState<result | null>(null);
   const [open, setOpen] = useState<boolean>(true);
 
@@ -77,6 +70,11 @@ export default function Dashboard() {
     });
   };
 
+  const handleDelete = (updatedSheets: Lamina[]) => {
+    setDisponibles(updatedSheets);
+    calcularCarga(updatedSheets);
+  };
+
   const calcularCarga = (laminasSeleccionadas: Lamina[]) => {
     let pesoTotal = 0,
       volumenTotal = 0;
@@ -100,21 +98,20 @@ export default function Dashboard() {
     });
     const data: result = await response.json();
     setResultado(data);
-    setCamionOptimo(data.response?.camionOptimo);
   };
 
   return (
     <div>
       {open && (
-        <div className="p-6 space-y-4 ">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <div className="p-2 space-y-4 lg:mx-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 my-10">
             {/* Card de selección de láminas */}
             <SheetSelection laminas={laminas} onSeleccionar={handleSeleccion} />
 
             {/* Card de láminas seleccionadas */}
             <SelectedSheet
               seleccionadas={disponibles}
-              onEliminar={setDisponibles}
+              onEliminar={handleDelete}
               pesoTotal={cargaTotal.peso}
               volumenTotal={cargaTotal.volumen}
             />

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { Lamina } from "@/models/request";
 interface Params {
   params: Promise<{ id: number }>;
 }
@@ -18,7 +19,8 @@ export async function GET(request: NextRequest, { params }: Params) {
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
     const sheetId = Number((await params)?.id);
-    const { Model, width, thickness, weight, types } = await request.json();
+    const { Model, width, thickness, weight, types }: Lamina =
+      await request.json();
 
     // Validación básica
     if (!sheetId || !Array.isArray(types) || types.length === 0) {

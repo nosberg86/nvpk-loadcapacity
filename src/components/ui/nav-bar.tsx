@@ -4,6 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { JSX, SVGProps } from "react";
@@ -57,9 +58,23 @@ export function ResponsiveNavBar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-        <MountainIcon className="h-6 w-6" />
-        <span className="sr-only">Acme Inc</span>
+      <Link href="/">
+        <Image
+          src="/logo_claro.png" // Ruta del logo en public/
+          alt="Novaplastik"
+          className="hidden dark:block"
+          width={200} // Ajusta el tamaño según tu necesidad
+          height={40}
+          priority // Carga optimizada
+        />
+        <Image
+          src="/logo_oscuro.png" // Ruta del logo en public/
+          alt="Novaplastik"
+          className="block dark:hidden"
+          width={200} // Ajusta el tamaño según tu necesidad
+          height={40}
+          priority // Carga optimizada
+        />
       </Link>
       <nav className="ml-auto hidden lg:flex gap-6">
         <Link

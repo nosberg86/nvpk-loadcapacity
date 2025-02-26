@@ -30,22 +30,33 @@ export default function SheetSelection({ laminas, onSeleccionar }: Props) {
         <CardTitle>Seleccionar Láminas</CardTitle>
       </CardHeader>
       <CardContent>
-        <Accordion type="multiple">
+        <Accordion type="single" collapsible>
           {laminas.map((lamina) => (
-            <AccordionItem key={lamina.id} value={lamina.Model}>
+            <AccordionItem
+              key={lamina.id}
+              value={lamina.Model}
+              className=" gap-2 hover:border-green-400"
+            >
               <AccordionTrigger>
                 <pre>Lámina: {lamina.Model}</pre>
               </AccordionTrigger>
               <AccordionContent>
                 {lamina.types.map((tipo) => (
-                  <div key={tipo.id} className="flex gap-2 items-center">
-                    <Checkbox
-                      onCheckedChange={(checked) =>
-                        onSeleccionar(lamina, tipo, checked, 1)
-                      }
-                    />
-                    <pre>{tipo.length} metros</pre>
+                  <div
+                    key={tipo.id}
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-2 my-2"
+                  >
+                    <div className="flex justify-between">
+                      <Checkbox
+                        onCheckedChange={(checked) =>
+                          onSeleccionar(lamina, tipo, checked, 1)
+                        }
+                      />
+                      <pre className="mx-4">{tipo.length} metros</pre>
+                    </div>
+
                     <Input
+                      className="max-w-32"
                       type="number"
                       min={1}
                       max={tipo.stock}

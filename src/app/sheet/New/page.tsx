@@ -1,12 +1,12 @@
 import prisma from "@/lib/prisma";
-import { sheet } from "@prisma/client";
 import CustomForm from "../components/SheetCustomForm";
+import { Lamina } from "@/models/request";
 
 type Params = Promise<{ id: number }>;
 
 async function newSheet({ params }: { params: Params }) {
   //const router = useRouter();
-  let data: sheet | null | undefined;
+  let data: Lamina | null | undefined;
   const id = (await params)?.id;
 
   if (id) {
@@ -14,6 +14,7 @@ async function newSheet({ params }: { params: Params }) {
       where: {
         id: Number(id),
       },
+      include: { types: true },
     });
     data = sheet;
   }
